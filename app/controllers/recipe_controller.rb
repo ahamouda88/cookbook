@@ -1,10 +1,14 @@
 class RecipeController < ApplicationController
+  before_action :set_recipe, only: [:show, :edit, :update, :destroy]
+
   def list
     @recipes = Recipe.all
   end
 
   def show
-    @recipe = Recipe.find(params[:id])
+  end
+
+  def edit
   end
 
   def new
@@ -23,7 +27,6 @@ class RecipeController < ApplicationController
   end
 
   def update
-    @recipe = Recipe.find(params[:id])
     if @recipe.update_attributes(recipe_params)
       redirect_to "show", id: @recipe
     else
@@ -32,16 +35,15 @@ class RecipeController < ApplicationController
   end
 
   def destroy
-    @recipe = Recipe.find(params[:id])
     @recipe.destroy
     redirect_to "list"
   end
 
-  # Not Used Yet!
-  def edit
-  end
-
-  def recipe_params
-    params.require(:recipe).permit(:title, :instructions)
-  end
+  private
+    def set_recipe
+      @recipe = Recipe.find(params[:id])
+    end
+    def recipe_params
+      params.fetch(:recipe, {})
+    end
 end
