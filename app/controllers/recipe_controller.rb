@@ -43,7 +43,8 @@ class RecipeController < ApplicationController
     def set_recipe
       @recipe = Recipe.find(params[:id])
     end
+
     def recipe_params
-      params.fetch(:recipe, {})
+      params.require(:recipe).permit(:title, :instructions)
     end
 end
