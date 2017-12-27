@@ -1,7 +1,7 @@
 class RecipeController < ApplicationController
   before_action :set_recipe, only: [:show, :edit, :update, :destroy]
 
-  def list
+  def index
     @recipes = Recipe.all
   end
 
@@ -19,7 +19,7 @@ class RecipeController < ApplicationController
     @recipe = Recipe.new(recipe_params)
     if @recipe.save
       # redirect_to action: "list"
-      redirect_to "list"
+      redirect_to "index"
     else
       # render action: "new"
       render "new"
@@ -36,7 +36,7 @@ class RecipeController < ApplicationController
 
   def destroy
     @recipe.destroy
-    redirect_to "list"
+    redirect_to "index"
   end
 
   private
